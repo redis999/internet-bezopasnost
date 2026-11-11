@@ -1,10 +1,9 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const toggle = document.querySelector('.menu-toggle');
-  const navigation = document.querySelector('.site-nav');
-  if (!toggle || !navigation) return;
-  toggle.addEventListener('click', () => {
-    const expanded = toggle.getAttribute('aria-expanded') === 'true';
-    toggle.setAttribute('aria-expanded', String(!expanded));
-    navigation.classList.toggle('is-open', !expanded);
-  });
-});
+function updateMobileEdges() {
+  const maximumScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 0);
+  const inMiddle = window.scrollY > 140 && window.scrollY < maximumScroll - 140;
+  document.body.classList.toggle('mobile-edges-hidden', inMiddle);
+}
+
+document.addEventListener('DOMContentLoaded', updateMobileEdges);
+window.addEventListener('scroll', updateMobileEdges, { passive: true });
+window.addEventListener('resize', updateMobileEdges);
